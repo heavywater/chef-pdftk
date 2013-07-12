@@ -29,8 +29,15 @@ package "g++" do
   action :install
 end
 
-package "gcj" do
-  action :install
+case node[:platform]
+when "debian", "ubuntu"
+  package "gcj-jdk" do
+    action :install
+  end
+else
+  package "gcj" do
+    action :install
+  end
 end
 
 remote_file "/tmp/#{node.pdftk.source}" do
